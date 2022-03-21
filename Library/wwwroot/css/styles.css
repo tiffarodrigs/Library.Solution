@@ -1,0 +1,62 @@
+ul#footer {
+  width:100%;
+  padding:8px;
+  text-align: center;
+}
+
+div#title-bar {
+  text-align: center;
+  position:fixed;
+  top:0px;
+  right:0px;
+  width:100%;
+  padding:8px;
+}
+
+#homepage-photo {
+  height: 30%;
+  width: auto;
+}
+
+.jumbotron {
+  background: linear-gradient(.25turn, #b6d7b9, 10%, #d0f1bf);
+}
+
+.jumbotron h1 {
+  text-align: center;
+  color: #646536;
+  text-shadow: 1px 1px 2px #483D03;
+}
+
+.card {
+  min-width: 18rem;
+}
+
+#add-form {
+  margin-top: 5%;
+}
+
+.nav-link {
+  padding-top: 1.5rem;
+  }
+
+.card-link {
+  margin-right: 1rem;
+}
+
+#no-stylist {
+  margin-top: 5%;
+}
+
+#details-header {
+  margin-top: 5%;
+}
+
+.display-4 {
+  text-align: center;
+}
+
+.btn {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}

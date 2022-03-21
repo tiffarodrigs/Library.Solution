@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+  @await Html.PartialAsync("_Navbar")
+  @model Library.Models.Author
+  <div id="addAuthor">
+    <div class="card card-body">
+      <h5 class="card-title">Add a new Author</h5>
+      <form action="~/Authors/Create" method="post">
+        <div class="form-group">
+          @Html.TextBoxFor(model => model.AuthorName, new { @class="form-control required", @required="required", @placeholder="Betty Smith"})
+        </div>
+        <button type="submit" class="btn btn-primary">Add Author</button>
+        <a>@Html.ActionLink("Cancel", "Index", "Home", null, new { @class="btn btn-danger"})</a>
+      </form>
+    </div>
+    @await Html.PartialAsync("_Footer")
+  </div>
+</div>

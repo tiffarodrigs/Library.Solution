@@ -1,0 +1,28 @@
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+  @await Html.PartialAsync("_Navbar")
+  @model Library.Models.Book
+  <div id="addBook">
+    <div class="card card-body">
+      <h5 class="card-title">Add a new Book</h5>
+      <form action="~/Books/Create" method="post">
+        <div class="form-group">
+          @Html.LabelFor(model => model.Title)
+          @Html.TextBoxFor(model => model.Title, new { @class="form-control required", @required="required", @placeholder="A Tree Grows in Brooklyn"})
+        </div>
+        @if (ViewBag.Authors.Count != 0)
+        {
+        <div class="form-group">
+          @Html.Label("Select Author")
+          @Html.DropDownList("AuthorId", (IEnumerable<SelectListItem>)ViewBag.AuthorId, "(Optional) Choose Author", new { @class="form-control"})
+        </div>
+        }
+        <button type="submit" class="btn btn-primary">Add Book</button>
+        <a>@Html.ActionLink("Cancel", "Index", "Home", null, new { @class="btn btn-danger"})</a>
+      </form>
+    </div>
+    @await Html.PartialAsync("_Footer")
+  </div>
+</div>

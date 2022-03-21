@@ -1,0 +1,25 @@
+<nav id="title-bar" class="navbar navbar-expand-lg navbar-light bg-light d-lg-flex align-items-center">
+  <a class="navbar-brand align-middle" href="/">📚 LibraryWare 🗂</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <p>@Html.ActionLink("Home", "Index", "Home", null, htmlAttributes: new { @class = "nav-link align-middle" })</p>
+      </li>
+      <li class="nav-item">
+        <p>@Html.ActionLink("All Books", "Index", "Books", null, htmlAttributes: new { @class = "nav-link align-middle" })</p>
+      </li>
+      <li class="nav-item">
+        <p>@Html.ActionLink("All Authors", "Index", "Authors", null, htmlAttributes: new { @class = "nav-link align-middle" })</p>
+      </li>
+      <li class="nav-item">
+        <p>@Html.ActionLink("All Checkouts", "Index", "AuthorBooks", null, htmlAttributes: new { @class = "nav-link align-middle" })</p>
+      </li>
+      <li class="nav-item">
+        <p>@Html.ActionLink("Log In", "Index", "Accounts", null, htmlAttributes: new { @class = "nav-link align-middle" })</p>
+      </li>
+  </div>
+</nav>

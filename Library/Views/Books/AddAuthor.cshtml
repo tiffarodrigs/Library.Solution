@@ -1,0 +1,28 @@
+@{
+  Layout = "_Layout";
+}
+<div class="container">
+  @await Html.PartialAsync("_Navbar")
+  @model Library.Models.Book
+  <div id="addAuthor">
+    <div class="card card-body">
+      <h5 class="card-title">Set an author for this Book</h5>
+      @if(ViewBag.Authors.Count == 0)
+      {
+        <p class="card-text">Woah, slow down! You'll need to add an Author first.</p>
+      }
+      else 
+      {
+        <form action="~/Books/AddAuthor" method="post">
+          @Html.Hidden("BookId", Model.BookId, null)
+          <div class="form-group">
+            @Html.DropDownList("AuthorId", (SelectList)ViewBag.AuthorId, "Select Author", new { @class = "form-control" })
+          </div>
+          <button type="submit" class="btn btn-primary">Add author</button>
+          <a>@Html.ActionLink("Cancel", "Index", "Home", null, new { @class="btn btn-danger"})</a>
+        </form>
+      }
+    </div>
+  </div>
+  @await Html.PartialAsync("_Footer")
+</div> 

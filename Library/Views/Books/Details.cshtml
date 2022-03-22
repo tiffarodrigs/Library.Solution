@@ -11,11 +11,11 @@
     <p>This Book has not been linked to an Author.</p>
     @if(ViewBag.Authors.Count == 0)
     {
-    @Html.ActionLink("Add new Author", "Create", "Author", null, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Add new Author", "Create", "Authors", null, new { @class = "btn btn-primary"})
     }
     else
     {
-    @Html.ActionLink("Add Book to existing Author", "AddAuthor", "Book", new { @id = Model.BookId}, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Add Book to existing Author", "AddAuthor", "Books", new { @id = Model.BookId}, new { @class = "btn btn-primary"})
     }
   }
   else
@@ -25,11 +25,11 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">@join.Author.AuthorName</h5>
-      <p>@Html.ActionLink("View Details", "Details", "Author", new { @id = join.AuthorId}, new { @class = "text-primary"}) | @Html.ActionLink("Delete Author", "RemoveAuthor", "Book", new { @id = join.AuthorBookId}, new { @class = "text-danger"})</p>
+      <p>@Html.ActionLink("View Details", "Details", "Authors", new { @id = join.AuthorId}, new { @class = "text-primary"}) | @Html.ActionLink("Delete Author", "RemoveAuthor", "Books", new { @id = join.AuthorBookId}, new { @class = "text-danger"})</p>
     </div>
   </div>
   }
-  @Html.ActionLink("Add Book to existing Author", "AddAuthor", "Book", new { @id = Model.BookId}, new { @class = "btn btn-primary"})
+  @Html.ActionLink("Add Book to existing Author", "AddAuthor", "Books", new { @id = Model.BookId}, new { @class = "btn btn-primary"})
   }
   @await Html.PartialAsync("_Footer")
 </div> 

@@ -75,17 +75,18 @@ namespace Library.Controllers
 
     public ActionResult AddBook(int id)
     {
-      ViewBag.BookId = new SelectList(_db.Books, "BookID", "Title");
+      ViewBag.Books = _db.Books.ToList();
+      ViewBag.BookId = new SelectList(_db.Books, "BookId", "Title");
       var thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
       return View(thisAuthor); 
     }
 
     [HttpPost]
-    public ActionResult AddBook(int authorId, int bookId)
+    public ActionResult AddBook(int AuthorId, int BookId)
     {
-      _db.AuthorBook.Add(new AuthorBook() { AuthorId = authorId, BookId = bookId});
+      _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = BookId});
       _db.SaveChanges();
-      return RedirectToAction("Details", new { id = authorId});
+      return RedirectToAction("Details", new { id = AuthorId});
     }
 
     public ActionResult RemoveBook(int id)

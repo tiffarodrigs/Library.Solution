@@ -11,11 +11,11 @@
     <p>This Author has no books in the catalog.</p>
     @if(ViewBag.Books.Count == 0)
     {
-    @Html.ActionLink("Add new Book", "Create", "Book", null, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Add new Book", "Create", "Books", null, new { @class = "btn btn-primary"})
     }
     else
     {
-    @Html.ActionLink("Add Author to existing Book", "AddBook", "Author", new { @id = Model.AuthorId}, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Add Author to existing Book", "AddBook", "Authors", new { @id = Model.AuthorId}, new { @class = "btn btn-primary"})
     }
   }
   else
@@ -24,10 +24,10 @@
     <dt class="col-sm-3">Bibliography</dt>
     @foreach(var join in Model.JoinEntities)
     {
-        <dd class="col-sm-9">@Html.ActionLink(join.Book.Title, "Details", "Book", new { @id = join.BookId}, new { @class = "text-primary"}) | @Html.ActionLink("Delete from Bibliograpgy", "RemoveBook", "Author", new { @id = join.AuthorBookId}, new { @class = "text-danger"})</dd>
+        <dd class="col-sm-9">@Html.ActionLink(join.Book.Title, "Details", "Books", new { @id = join.BookId}, new { @class = "text-primary"}) | @Html.ActionLink("Delete from Bibliograpgy", "RemoveBook", "Authors", new { @id = join.AuthorBookId}, new { @class = "text-danger"})</dd>
     }
   </dl>
-  @Html.ActionLink("Add Author to existing Book", "AddBook", "Author", new { @id = Model.AuthorId}, new { @class = "btn btn-primary"})
+  @Html.ActionLink("Add Author to existing Book", "AddBook", "Authors", new { @id = Model.AuthorId}, new { @class = "btn btn-primary"})
   }
   @await Html.PartialAsync("_Footer")
 </div> 

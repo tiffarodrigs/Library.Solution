@@ -11,7 +11,7 @@ using System.Security.Claims;
 
 namespace Library.Controllers
 {
-  //[Authorize]
+  [Authorize]
   public class BooksController : Controller
   {
     private readonly LibraryContext _db;
@@ -24,18 +24,11 @@ namespace Library.Controllers
       _db = db;
     }
 
-    // public ActionResult Index()
-    // {
-    //   List<Book> model = _db.Books.ToList();
-    //   return View(model);
-    // }
-    public async Task<ActionResult> Index()
-{
-    var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    var currentUser = await _userManager.FindByIdAsync(userId);
-    var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
-    return View(userBooks);
-}
+    public ActionResult Index()
+    {
+      List<Book> model = _db.Books.ToList();
+      return View(model);
+    }
 
     public ActionResult Create()
     {
@@ -45,12 +38,6 @@ namespace Library.Controllers
     }
 
     [HttpPost]
-    // public ActionResult Create(Book book)
-    // {
-    //   _db.Books.Add(book);
-    //   _db.SaveChanges();
-    //   return RedirectToAction("Index");
-    // }
     public async Task<ActionResult> Create(Book book)
 {
     var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -95,6 +82,30 @@ namespace Library.Controllers
     {
       var thisBook = _db.Books.FirstOrDefault(b => b.BookId == id);
       _db.Books.Remove(thisBook);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult AddAuthor(int id)
+    {
+      ViewBag.Authors = _db.Authors.ToList();
+      ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "AuthorName");
+      var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
+      return View(thisBook); 
+    }
+
+    [HttpPost]
+    public ActionResult AddAuthor(int AuthorId, int BookId)
+    {
+      _db.AuthorBook.Add(new AuthorBook() { AuthorId = AuthorId, BookId = BookId});
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = BookId});
+    }
+
+    public ActionResult RemoveAuthor(int id)
+    {
+      var thisJoin = _db.AuthorBook.FirstOrDefault(join => join.AuthorBookId == id);
+      _db.AuthorBook.Remove(thisJoin);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Library.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace Library.Controllers
 {
@@ -37,6 +36,7 @@ namespace Library.Controllers
 
     public ActionResult Details(int id)
     {
+      ViewBag.Books = _db.Books.ToList();
       var thisAuthor = _db.Authors
         .Include(author => author.JoinEntities)
         .ThenInclude(join => join.Book)
@@ -71,6 +71,30 @@ namespace Library.Controllers
       _db.Authors.Remove(thisAuthor);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult AddBook(int id)
+    {
+      ViewBag.BookId = new SelectList(_db.Books, "BookID", "Title");
+      var thisAuthor = _db.Authors.FirstOrDefault(author => author.AuthorId == id);
+      return View(thisAuthor); 
+    }
+
+    [HttpPost]
+    public ActionResult AddBook(int authorId, int bookId)
+    {
+      _db.AuthorBook.Add(new AuthorBook() { AuthorId = authorId, BookId = bookId});
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = authorId});
+    }
+
+    public ActionResult RemoveBook(int id)
+    {
+      var thisJoin = _db.AuthorBook.FirstOrDefault(join => join.AuthorBookId == id);
+      var redirectId = thisJoin.AuthorId;
+      _db.AuthorBook.Remove(thisJoin);
+      _db.SaveChanges();
+      return RedirectToAction("Index", new {id = redirectId});
     }
   }
 }

@@ -18,7 +18,7 @@
         <thead>
           <tr>
             <th scope="col">Author ID #</th>
-            <th scope="col">AuthorName</th>
+            <th scope="col">Name</th>
             <th scope="col">Details</th>
           </tr>
         </thead>
@@ -28,11 +28,12 @@
           <tr>
             <th scope="row">@author.AuthorId</th>
             <td>@author.AuthorName</td>
-            <td>@Html.ActionLink("Details", "Details", "Authors", new { @id = author.AuthorId}, new { @class = "text-danger"})</td>
+            <td>@Html.ActionLink("Details", "Details", "Authors", new { @id = author.AuthorId}, new { @class = "text-primary"})</td>
           </tr>
           }
         </tbody>
       </table>
+      <p>@Html.ActionLink("Add a new Author", "Create", "Authors", null, new { @class="btn btn-primary"})</p>
       }  
   @await Html.PartialAsync("_Footer")
 </div>

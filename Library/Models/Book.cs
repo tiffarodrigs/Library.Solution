@@ -15,7 +15,7 @@ namespace Library.Models
 
     public virtual ApplicationUser User { get; set; }
 
-    public virtual ICollection<AuthorBook> JoinEntities { get; }
+    public virtual  ICollection<AuthorBook> JoinEntities { get; }
     //public ICollection<BookPatron> Checkouts { get; }
   }
 }

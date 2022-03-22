@@ -1,12 +1,17 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Library.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Library.Controllers
 {
+  [Authorize]
   public class AuthorsController : Controller
   {
     private readonly LibraryContext _db;
@@ -15,6 +20,7 @@ namespace Library.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Author> model = _db.Authors.ToList();
@@ -33,7 +39,8 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id= author.AuthorId});
     }
-
+    
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       ViewBag.Books = _db.Books.ToList();

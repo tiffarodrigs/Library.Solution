@@ -24,12 +24,13 @@ namespace Library.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public ActionResult Index()
     {
       List<Book> model = _db.Books.ToList();
       return View(model);
     }
-
+ 
     public ActionResult Create()
     {
       ViewBag.Authors = _db.Authors.ToList();
@@ -47,7 +48,7 @@ namespace Library.Controllers
     _db.SaveChanges();
     return RedirectToAction("Index");
 }
-
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       ViewBag.Authors = _db.Authors.ToList();
@@ -57,6 +58,8 @@ namespace Library.Controllers
           .FirstOrDefault(b => b.BookId == id);
       return View(thisBook);
     }
+
+
     public ActionResult Edit(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(b => b.BookId == id);
@@ -70,13 +73,12 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
+    [Authorize]
     public ActionResult Delete(int id)
     {
       var thisBook = _db.Books.FirstOrDefault(b => b.BookId == id);
       return View(thisBook);
     }
-
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -85,7 +87,6 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
     public ActionResult AddAuthor(int id)
     {
       ViewBag.Authors = _db.Authors.ToList();
@@ -93,7 +94,6 @@ namespace Library.Controllers
       var thisBook = _db.Books.FirstOrDefault(book => book.BookId == id);
       return View(thisBook); 
     }
-
     [HttpPost]
     public ActionResult AddAuthor(int AuthorId, int BookId)
     {
